@@ -48,6 +48,22 @@ def findmostparallel(lines):
 
     return lines1, most_parallel_angle
 
+# Finds the angle of rotation required to straighten the image to the closest
+# axis (horizontal or vertical)
+def convert_to_rotation_angle(line_angle):
+    angle = 360 - line_angle
+    if line_angle < 45:
+        pass
+    elif line_angle < 135:
+        angle = 90 - line_angle
+    elif line_angle < 225:
+        angle = 180 - line_angle
+    elif line_angle < 315:
+        angle = 270 - line_angle
+
+    # Always return positive angle
+    return angle if angle > 0 else angle + 360
+
 def drawline(r, theta, img):
 
         # Stores the value of cos(theta) in a
@@ -85,7 +101,7 @@ def drawline(r, theta, img):
 # directory in which this python program is
 img = cv2.imread(sys.argv[1])
 
-blur = cv2.blur(img,(9,9))
+blur = cv2.blur(img,(5,5))
 
 # Convert the img to grayscale
 gray = cv2.cvtColor(blur,cv2.COLOR_BGR2GRAY)
@@ -95,8 +111,12 @@ edges = cv2.Canny(gray,50,150,apertureSize = 3)
 
 # This returns an array of r and theta values
 #  lines = cv2.HoughLines(edges,1,np.pi/180, int(sys.argv[2]))
-lines = cv2.HoughLines(edges,1,np.pi/90, int(sys.argv[2]))
-lines = list(map(lambda x: x[0], lines))
+houghlines= cv2.HoughLines(edges,1,np.pi/90, int(sys.argv[2]))
+if houghlines is None:
+    print "no lines"
+    exit()
+
+lines = list(map(lambda x: x[0], houghlines))
 #  for p in lines: print p
 #  print lines
 
@@ -109,14 +129,11 @@ for thisline in linesss:
     drawline(lines[idx2][0], lines[idx2][1], img)
 
 parallels, most_angle = findmostparallel(lines)
-#  print parallels
+print parallels
 deg_angle = math.degrees(most_angle)
-if deg_angle < 45:
-    print "rotate " + str(deg_angle) + " to vertical, " + str(360 - deg_angle)
-else:
-    print "rotate " + str(deg_angle) + " to horizontal, " + str(90 - deg_angle)
-#  print most_angle
+print "output is " + str(deg_angle)
 
+print convert_to_rotation_angle(deg_angle)
 
 # All the changes made in the input image are finally
 # written on a new image houghlines.jpg
