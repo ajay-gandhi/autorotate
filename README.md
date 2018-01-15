@@ -1,5 +1,15 @@
 # image rotator
 
+## Example
+
+**Original:**
+
+<img src="https://raw.githubusercontent.com/ajay-gandhi/image-rotator/master/test.jpg" width="350" />
+
+**Fixed:**
+
+<img src="https://raw.githubusercontent.com/ajay-gandhi/image-rotator/master/output.jpg" width="350" />
+
 ## Usage
 
 If you just want to try it, run `rotate.sh` on a file. The repo comes with a
