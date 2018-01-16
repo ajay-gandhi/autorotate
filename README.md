@@ -20,6 +20,11 @@ sample image in the repo called `test.jpg`.
 python main.py test.jpg
 ```
 
+## Tasks
+
+* Web interface?
+* Output image is _slightly_ blurry, not sure why
+
 ## References
 
 * [Hough Line Transform docs](https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/hough_lines/hough_lines.html)
