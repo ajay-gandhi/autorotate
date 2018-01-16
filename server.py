@@ -9,8 +9,6 @@ import numpy as np
 
 from rotateUtils import autorotate
 
-PORT = 8000
-
 class RequestHandler(BaseHTTPRequestHandler):
     def _set_headers(self, contentType="text/html"):
         self.send_response(200)
@@ -48,7 +46,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
+    port = int(os.environ.get("PORT", 8000))
     server_address = ("", port)
     httpd = HTTPServer(server_address, RequestHandler)
     print ("Starting server on port {}".format(port))
