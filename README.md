@@ -22,7 +22,6 @@ python cli.py test.jpg
 
 ## Tasks
 
-* Convert `cli.py` to use util function
 * Improve web interface
   * Crop option
   * Try again button for "wrong rotation" and "no rotation"
