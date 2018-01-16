@@ -34,12 +34,13 @@ class RequestHandler(BaseHTTPRequestHandler):
         decoded = np.frombuffer(base64.b64decode(data["image_data"]), dtype=np.uint8)
         img = cv2.imdecode(decoded, cv2.IMREAD_COLOR)
 
-        success, result = autorotate(img, data["auto_crop"])
+        threshold = data["threshold"] if "threshold" in data else 100
+        success, result = autorotate(img, data["auto_crop"], threshold)
         if success:
             retval, buf = cv2.imencode(".png", result)
             as_text = base64.b64encode(buf)
-            result = { "success": True, "imageData": as_text }
-            self.wfile.write(simplejson.dumps(result).encode())
+            res = { "success": True, "imageData": as_text }
+            self.wfile.write(simplejson.dumps(res).encode())
         else:
             self.wfile.write(simplejson.dumps({ "success": False, "error": result }).encode())
 

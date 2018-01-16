@@ -109,7 +109,7 @@ def draw_line(r, theta, img):
     cv2.line(img, (x1, y1), (x2, y2), (0, 0, 0), 2)
 
 # Performs autorotation using above helpers
-def autorotate(img, crop=True, threshold=100):
+def autorotate(img, crop, threshold):
     # Blur and grayscale image
     blur = cv2.blur(img, (5, 5))
     gray = cv2.cvtColor(blur, cv2.COLOR_BGR2GRAY)
