@@ -12,19 +12,13 @@
 
 ## Usage
 
-If you just want to try it, run `rotate.sh` on a file. The repo comes with a
-test file (`test.jpg`) which you can try it on.
+Run `parallel.py` on the image you want to rotate. The script takes two
+[required] arguments, the path to the image and the threshold for recognizing
+lines.
 
 ```bash
-# Only runs on Mac OS (uses sips)
-./rotate.sh test.jpg
+python parallel.py test.jpg 100
 ```
-
-If you're not on Mac or if you want to see everything for yourself, first run
-`parallel.py` on a test image. The script takes two inputs, the path to the file
-and the threhold to detect lines (still working on finding a good constant for
-this). The last line of output is what you'll need, it's the clockwise angle
-from the positive y axis (vertical) that the image must be rotated by.
 
 ## Todo
 

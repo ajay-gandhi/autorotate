@@ -7,6 +7,12 @@ if len(sys.argv) < 3:
     print "Needs 2 arguments, image and line threshold"
     exit()
 
+def rotate_img(img, angle):
+    image_center = tuple(np.array(img.shape[1::-1]) / 2)
+    rot_mat = cv2.getRotationMatrix2D(image_center, angle, 1.0)
+    result = cv2.warpAffine(img, rot_mat, img.shape[1::-1], flags=cv2.INTER_LINEAR)
+    return result
+
 # Returns tuples of indexes of parallel lines
 def find_parallel_lines(lines):
     parallel_pairs = []
@@ -15,7 +21,7 @@ def find_parallel_lines(lines):
         for j in range(i, len(lines)):
             if (i == j): continue
             if (abs(lines[i][1] - lines[j][1]) == 0):
-                parallel_pairs.append((i,j))
+                parallel_pairs.append((i, j))
 
     return parallel_pairs
 
@@ -44,18 +50,32 @@ def find_baseline(lines):
 # Finds the angle of rotation required to straighten the image to the closest
 # axis (horizontal or vertical)
 def convert_to_rotation_angle(line_angle):
-    angle = 360 - line_angle
-    if line_angle < 45:
-        pass
-    elif line_angle < 135:
-        angle = 90 - line_angle
-    elif line_angle < 225:
-        angle = 180 - line_angle
-    elif line_angle < 315:
-        angle = 270 - line_angle
+    if line_angle < 0.25 * np.pi:
+        return line_angle
 
-    # Always return positive angle
-    return angle if angle > 0 else angle + 360
+    elif line_angle < 0.75 * np.pi:
+        return line_angle - 0.5 * np.pi
+
+    elif line_angle < 1.25 * np.pi:
+        return line_angle - np.pi
+
+    elif line_angle < 1.75 * np.pi:
+        return line_angle - 1.5 * np.pi
+
+    else:
+        return line_angle
+    #  angle = 2 * np.pi - line_angle
+    #  if line_angle < 0.25 * np.pi:
+        #  pass
+    #  elif line_angle < 0.75 * np.pi:
+        #  angle = 0.5 * np.pi - line_angle
+    #  elif line_angle < 1.25 * np.pi:
+        #  angle = np.pi - line_angle
+    #  elif line_angle < 1.75 * np.pi:
+        #  angle = 1.5 * np.pi - line_angle
+
+    #  #  Always return positive angle
+    #  return angle if angle > 0 else angle + 2 * np.pi
 
 # Draws a line on img given r and theta in polar
 # Computes two points in (x, y) and passes them to cv2.line
@@ -70,12 +90,12 @@ def draw_line(r, theta, img):
     x2 = int(x0 - 1000 * -b)
     y2 = int(y0 - 1000 * a)
 
-    cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
+    cv2.line(img, (x1, y1), (x2, y2), (0, 0, 0), 2)
 
-img = cv2.imread(sys.argv[1])
+input_img = cv2.imread(sys.argv[1])
 
 # Blur and grayscale image
-blur = cv2.blur(img, (5, 5))
+blur = cv2.blur(input_img, (5, 5))
 gray = cv2.cvtColor(blur, cv2.COLOR_BGR2GRAY)
 
 # Lines are found by lining up edge features
@@ -93,13 +113,18 @@ lines = list(map(lambda x: x[0], hough_lines))
 parallels = find_parallel_lines(lines)
 for idx_pair in parallels:
     idx1, idx2 = idx_pair
-    draw_line(lines[idx1][0], lines[idx1][1], img)
-    draw_line(lines[idx2][0], lines[idx2][1], img)
+    draw_line(lines[idx1][0], lines[idx1][1], gray)
+    draw_line(lines[idx2][0], lines[idx2][1], gray)
 
-cv2.imwrite("withlines.jpg", img)
+cv2.imwrite("withlines.jpg", gray)
 
-angles, likely_angle = find_baseline(lines)
+angle_count, likely_angle = find_baseline(lines)
+rot_angle = math.degrees(convert_to_rotation_angle(likely_angle))
 
 # Print this just for info
-print angles
-print convert_to_rotation_angle(math.degrees(likely_angle))
+print "Angle count:\t" + str(angle_count)
+print "In degrees:\t" + str(math.degrees(rot_angle))
+
+# Write rotated image
+rotated_image = rotate_img(input_img, rot_angle)
+cv2.imwrite("output.jpg", rotated_image)
