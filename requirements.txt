@@ -1,0 +1,9 @@
+certifi==2016.9.26
+future==0.16.0
+gnureadline==6.3.3
+nose==1.3.7
+numpy==1.14.0
+pyth==0.6.0
+six==1.10.0
+TBB==0.1
+tzlocal==1.3

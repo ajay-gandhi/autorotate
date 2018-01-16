@@ -12,16 +12,13 @@
 
 ## Usage
 
-Run `main.py` on the image you want to rotate. Use the `help`/`h` flag for all
-the command line options. There's a sample image in the repo called `test.jpg`.
+Make sure you have OpenCV installed. Run `main.py` on the image you want to
+rotate. Use the `help`/`h` flag for all the command line options. There's a
+sample image in the repo called `test.jpg`.
 
 ```bash
 python main.py test.jpg
 ```
-
-## Todo
-
-* Add requirements file
 
 ## References
 
