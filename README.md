@@ -26,6 +26,13 @@ and the threhold to detect lines (still working on finding a good constant for
 this). The last line of output is what you'll need, it's the clockwise angle
 from the positive y axis (vertical) that the image must be rotated by.
 
+## Todo
+
+* Add requirements file
+* Improve interface
+* Implement auto-cropping based on original aspect ratio
+* OS independent
+
 ## References
 
 * [Hough Line Transform docs](https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/hough_lines/hough_lines.html)
