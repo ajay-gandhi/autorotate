@@ -37,7 +37,15 @@ def calc_cropped_bounds(w, h, angle):
         cos_2a = cos_a * cos_a - sin_a * sin_a
         wr, hr = (w * cos_a - h * sin_a) / cos_2a, (h * cos_a - w * sin_a) / cos_2a
 
-    return np.array([int(wr), int(hr)])
+    return wr, hr
+
+# Crops an image about the center point to the new width and height
+def crop_about_center(img, new_w, new_h):
+    diff_x = int(new_w) / 2
+    diff_y = int(new_h) / 2
+    c_y, c_x = np.array(img.shape[:2]) / 2
+    return img[c_y - diff_y:c_y + diff_y, c_x - diff_x:c_x + diff_x]
+
 
 # Returns tuples of indexes of parallel lines
 def find_parallel_lines(lines):
@@ -90,18 +98,6 @@ def convert_to_rotation_angle(line_angle):
 
     else:
         return line_angle
-    #  angle = 2 * np.pi - line_angle
-    #  if line_angle < 0.25 * np.pi:
-        #  pass
-    #  elif line_angle < 0.75 * np.pi:
-        #  angle = 0.5 * np.pi - line_angle
-    #  elif line_angle < 1.25 * np.pi:
-        #  angle = np.pi - line_angle
-    #  elif line_angle < 1.75 * np.pi:
-        #  angle = 1.5 * np.pi - line_angle
-
-    #  #  Always return positive angle
-    #  return angle if angle > 0 else angle + 2 * np.pi
 
 # Draws a line on img given r and theta in polar
 # Computes two points in (x, y) and passes them to cv2.line
@@ -149,7 +145,7 @@ rot_angle = convert_to_rotation_angle(likely_angle)
 
 # Print this just for info
 print "Angle count:\t" + str(angle_count)
-print "In degrees:\t" + str(math.degrees(rot_angle))
+print "Rotation angle:\t" + str(math.degrees(rot_angle))
 
 # Write rotated image
 rotated_img = rotate_img(input_img, math.degrees(rot_angle))
@@ -159,7 +155,9 @@ cv2.imwrite("output.jpg", rotated_img)
 #  print str(np.array(input_img.shape))
 #  print str(np.array(input_img.shape)[0:2])
 height, width = input_img.shape[:2]
-diff_y, diff_x = calc_cropped_bounds(width, height, rot_angle) / 2
-c_y, c_x = np.array(rotated_img.shape[:2]) / 2
-print str(c_x) + "," + str(diff_x) + "," + str(c_y) + "," + str(diff_y)
-cropped_img = rotated_img[c_y - diff_y:c_y + diff_y, c_x - diff_x:c_x + diff_x]
+new_width, new_height = calc_cropped_bounds(width, height, rot_angle)
+cropped_img = crop_about_center(rotated_img, new_width, new_height)
+
+print "Old size:\t" + str(width) + "x" + str(height)
+print "New size:\t" + str(int(new_width)) + "x" + str(int(new_height))
+cv2.imwrite("cropped.jpg", cropped_img)
