@@ -18,7 +18,12 @@ $(document).ready(function () {
       type: "POST",
       data: data,
     }).done(function (result) {
-      $("#outputImage").attr("src", "data:image/png;base64," + result.trim());
+      var data = JSON.parse(result);
+      if (data.success) {
+        $("#outputImage").attr("src", "data:image/png;base64," + data.imageData.trim());
+      } else {
+        console.log("Error", result.error);
+      }
     }).fail(function (xhr, ajaxOptions, thrownError) {
       console.log("Error", thrownError);
     });

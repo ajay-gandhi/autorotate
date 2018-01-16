@@ -36,9 +36,9 @@ def calc_cropped_bounds(w, h, angle):
 
 # Crops an image about the center point to the new width and height
 def crop_about_center(img, new_w, new_h):
-    diff_x = int(new_w) / 2
-    diff_y = int(new_h) / 2
-    c_y, c_x = np.array(img.shape[:2]) / 2
+    diff_x = int(new_w) // 2
+    diff_y = int(new_h) // 2
+    c_y, c_x = np.array(img.shape[:2]) // 2
     return img[c_y - diff_y:c_y + diff_y, c_x - diff_x:c_x + diff_x]
 
 # Returns tuples of indexes of parallel lines
@@ -119,8 +119,7 @@ def autorotate(img, crop=True, threshold=100):
     hough_lines = cv2.HoughLines(edges, 1, np.pi / 90, threshold)
 
     # hough_lines is an array of r and theta values
-    if hough_lines is None:
-        return False, "No lines found"
+    if hough_lines is None: return False, "No lines found"
 
     lines = list(map(lambda x: x[0], hough_lines))
 
@@ -133,7 +132,7 @@ def autorotate(img, crop=True, threshold=100):
         # Crop rotated image using original
         height, width = img.shape[:2]
         new_width, new_height = calc_cropped_bounds(width, height, rot_angle)
-        return crop_about_center(rotated_img, new_width, new_height)
+        return True, crop_about_center(rotated_img, new_width, new_height)
     else:
         # Return uncropped rotated image
-        return rotated_img
+        return True, rotated_img
