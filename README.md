@@ -12,17 +12,21 @@
 
 ## Usage
 
-Make sure you have OpenCV installed. Run `main.py` on the image you want to
+Make sure you have OpenCV installed. Run `cli.py` on the image you want to
 rotate. Use the `help`/`h` flag for all the command line options. There's a
 sample image in the repo called `test.jpg`.
 
 ```bash
-python main.py test.jpg
+python cli.py test.jpg
 ```
 
 ## Tasks
 
-* Web interface?
+* Convert `cli.py` to use util function
+* Improve web interface
+  * Crop option
+  * Try again button for "wrong rotation" and "no rotation"
+  * Add styling
 * Output image is _slightly_ blurry, not sure why
 
 ## References

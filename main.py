@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import argparse
 
-import util
+import rotateUtils
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Automatically rotate images")
@@ -54,7 +54,6 @@ if __name__ == "__main__":
 
     if args.no_crop:
         # Write uncropped rotated image
-        rotated_img = util.rotate_img(input_img, math.degrees(rot_angle))
         cv2.imwrite(args.output, rotated_img)
     else:
         # Crop rotated image using original

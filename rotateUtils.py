@@ -108,3 +108,32 @@ def draw_line(r, theta, img):
 
     cv2.line(img, (x1, y1), (x2, y2), (0, 0, 0), 2)
 
+# Performs autorotation using above helpers
+def autorotate(img, crop=True, threshold=100):
+    # Blur and grayscale image
+    blur = cv2.blur(img, (5, 5))
+    gray = cv2.cvtColor(blur, cv2.COLOR_BGR2GRAY)
+
+    # Lines are found by lining up edge features
+    edges = cv2.Canny(gray, 50, 150, apertureSize = 3)
+    hough_lines = cv2.HoughLines(edges, 1, np.pi / 90, threshold)
+
+    # hough_lines is an array of r and theta values
+    if hough_lines is None:
+        return False, "No lines found"
+
+    lines = list(map(lambda x: x[0], hough_lines))
+
+    angle_count, likely_angle = find_baseline(lines)
+    rot_angle = convert_to_rotation_angle(likely_angle)
+
+    rotated_img = rotate_img(img, math.degrees(rot_angle))
+
+    if crop:
+        # Crop rotated image using original
+        height, width = img.shape[:2]
+        new_width, new_height = calc_cropped_bounds(width, height, rot_angle)
+        return crop_about_center(rotated_img, new_width, new_height)
+    else:
+        # Return uncropped rotated image
+        return rotated_img
