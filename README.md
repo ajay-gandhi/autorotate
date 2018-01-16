@@ -12,20 +12,16 @@
 
 ## Usage
 
-Run `parallel.py` on the image you want to rotate. The script takes two
-[required] arguments, the path to the image and the threshold for recognizing
-lines.
+Run `main.py` on the image you want to rotate. Use the `help`/`h` flag for all
+the command line options. There's a sample image in the repo called `test.jpg`.
 
 ```bash
-python parallel.py test.jpg 100
+python main.py test.jpg
 ```
 
 ## Todo
 
 * Add requirements file
-* Improve interface
-* Implement auto-cropping based on original aspect ratio
-* OS independent
 
 ## References
 

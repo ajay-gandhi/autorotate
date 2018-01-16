@@ -1,11 +1,6 @@
 import math
 import cv2
 import numpy as np
-import sys
-
-if len(sys.argv) < 3:
-    print "Needs 2 arguments, image and line threshold"
-    exit()
 
 # Rotates an image without cropping the corners
 def rotate_img(img, angle):
@@ -45,7 +40,6 @@ def crop_about_center(img, new_w, new_h):
     diff_y = int(new_h) / 2
     c_y, c_x = np.array(img.shape[:2]) / 2
     return img[c_y - diff_y:c_y + diff_y, c_x - diff_x:c_x + diff_x]
-
 
 # Returns tuples of indexes of parallel lines
 def find_parallel_lines(lines):
@@ -114,50 +108,3 @@ def draw_line(r, theta, img):
 
     cv2.line(img, (x1, y1), (x2, y2), (0, 0, 0), 2)
 
-input_img = cv2.imread(sys.argv[1])
-
-# Blur and grayscale image
-blur = cv2.blur(input_img, (5, 5))
-gray = cv2.cvtColor(blur, cv2.COLOR_BGR2GRAY)
-
-# Lines are found by lining up edge features
-edges = cv2.Canny(gray, 50, 150, apertureSize = 3)
-hough_lines = cv2.HoughLines(edges, 1, np.pi / 90, int(sys.argv[2]))
-
-# hough_lines is an array of r and theta values
-if hough_lines is None:
-    print "No lines found"
-    exit()
-
-lines = list(map(lambda x: x[0], hough_lines))
-
-# Draw parallel lines on the image
-parallels = find_parallel_lines(lines)
-for idx_pair in parallels:
-    idx1, idx2 = idx_pair
-    draw_line(lines[idx1][0], lines[idx1][1], gray)
-    draw_line(lines[idx2][0], lines[idx2][1], gray)
-
-cv2.imwrite("withlines.jpg", gray)
-
-angle_count, likely_angle = find_baseline(lines)
-rot_angle = convert_to_rotation_angle(likely_angle)
-
-# Print this just for info
-print "Angle count:\t" + str(angle_count)
-print "Rotation angle:\t" + str(math.degrees(rot_angle))
-
-# Write rotated image
-rotated_img = rotate_img(input_img, math.degrees(rot_angle))
-cv2.imwrite("output.jpg", rotated_img)
-
-# Crop rotated image using original
-#  print str(np.array(input_img.shape))
-#  print str(np.array(input_img.shape)[0:2])
-height, width = input_img.shape[:2]
-new_width, new_height = calc_cropped_bounds(width, height, rot_angle)
-cropped_img = crop_about_center(rotated_img, new_width, new_height)
-
-print "Old size:\t" + str(width) + "x" + str(height)
-print "New size:\t" + str(int(new_width)) + "x" + str(int(new_height))
-cv2.imwrite("cropped.jpg", cropped_img)
