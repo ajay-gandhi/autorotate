@@ -11,7 +11,11 @@ $(document).ready(function () {
   });
 
   $("#submitImage").click(function () {
-    var data = JSON.stringify({ image_data: imageData.substring(imageData.indexOf(",") + 1) });
+    var base64ImageData = imageData.substring(imageData.indexOf(",") + 1);
+    var data = JSON.stringify({
+      image_data: base64ImageData,
+      auto_crop: $("#autoCrop").is(":checked"),
+    });
 
     $.ajax({
       url: "/rotate",

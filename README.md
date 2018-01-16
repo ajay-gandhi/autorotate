@@ -23,7 +23,6 @@ python cli.py test.jpg
 ## Tasks
 
 * Improve web interface
-  * Crop option
   * Try again button for "wrong rotation" and "no rotation"
   * Add styling
 * Output image is _slightly_ blurry, not sure why

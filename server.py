@@ -32,10 +32,9 @@ class RequestHandler(BaseHTTPRequestHandler):
         data_string = self.rfile.read(int(self.headers["Content-Length"]))
         data = simplejson.loads(data_string)
         decoded = np.frombuffer(base64.b64decode(data["image_data"]), dtype=np.uint8)
-        #  decoded = np.fromstring(data["image_data"].decode("base64"), np.uint8)
         img = cv2.imdecode(decoded, cv2.IMREAD_COLOR)
 
-        success, result = autorotate(img)
+        success, result = autorotate(img, data["auto_crop"])
         if success:
             retval, buf = cv2.imencode(".png", result)
             as_text = base64.b64encode(buf)
