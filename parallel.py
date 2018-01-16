@@ -7,11 +7,37 @@ if len(sys.argv) < 3:
     print "Needs 2 arguments, image and line threshold"
     exit()
 
+# Rotates an image without cropping the corners
 def rotate_img(img, angle):
-    image_center = tuple(np.array(img.shape[1::-1]) / 2)
-    rot_mat = cv2.getRotationMatrix2D(image_center, angle, 1.0)
-    result = cv2.warpAffine(img, rot_mat, img.shape[1::-1], flags=cv2.INTER_LINEAR)
-    return result
+    height, width = img.shape[:2]
+    image_center = (width / 2, height / 2)
+    rotation_mat = cv2.getRotationMatrix2D(image_center, angle, 1)
+
+    radians = math.radians(angle)
+    sin = math.sin(radians)
+    cos = math.cos(radians)
+    bound_w = int((height * abs(sin)) + (width * abs(cos)))
+    bound_h = int((height * abs(cos)) + (width * abs(sin)))
+
+    rotation_mat[0, 2] += ((bound_w / 2) - image_center[0])
+    rotation_mat[1, 2] += ((bound_h / 2) - image_center[1])
+
+    return cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
+
+# Taken from https://stackoverflow.com/a/16778797
+def calc_cropped_bounds(w, h, angle):
+    width_is_longer = w >= h
+    side_long, side_short = (w, h) if width_is_longer else (h, w)
+
+    sin_a, cos_a = abs(math.sin(angle)), abs(math.cos(angle))
+    if side_short <= 2. * sin_a * cos_a * side_long or abs(sin_a - cos_a) < 1e-10:
+        x = 0.5 * side_short
+        wr,hr = (x / sin_a, x / cos_a) if width_is_longer else (x / cos_a, x / sin_a)
+    else:
+        cos_2a = cos_a * cos_a - sin_a * sin_a
+        wr, hr = (w * cos_a - h * sin_a) / cos_2a, (h * cos_a - w * sin_a) / cos_2a
+
+    return np.array([int(wr), int(hr)])
 
 # Returns tuples of indexes of parallel lines
 def find_parallel_lines(lines):
@@ -119,21 +145,21 @@ for idx_pair in parallels:
 cv2.imwrite("withlines.jpg", gray)
 
 angle_count, likely_angle = find_baseline(lines)
-rot_angle = math.degrees(convert_to_rotation_angle(likely_angle))
+rot_angle = convert_to_rotation_angle(likely_angle)
 
 # Print this just for info
 print "Angle count:\t" + str(angle_count)
 print "In degrees:\t" + str(math.degrees(rot_angle))
 
 # Write rotated image
-rotated_img = rotate_img(input_img, rot_angle)
+rotated_img = rotate_img(input_img, math.degrees(rot_angle))
 cv2.imwrite("output.jpg", rotated_img)
 
 # Crop rotated image using original
 #  print str(np.array(input_img.shape))
 #  print str(np.array(input_img.shape)[0:2])
-[diff_y, diff_x] = np.array(input_img.shape[0:2]) / 2
-[c_y, c_x] = np.array(rotated_img.shape[0:2]) / 2
+height, width = input_img.shape[:2]
+diff_y, diff_x = calc_cropped_bounds(width, height, rot_angle) / 2
+c_y, c_x = np.array(rotated_img.shape[:2]) / 2
 print str(c_x) + "," + str(diff_x) + "," + str(c_y) + "," + str(diff_y)
 cropped_img = rotated_img[c_y - diff_y:c_y + diff_y, c_x - diff_x:c_x + diff_x]
-cv2.imwrite("cropped.jpg", cropped_img)
