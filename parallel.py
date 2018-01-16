@@ -126,5 +126,14 @@ print "Angle count:\t" + str(angle_count)
 print "In degrees:\t" + str(math.degrees(rot_angle))
 
 # Write rotated image
-rotated_image = rotate_img(input_img, rot_angle)
-cv2.imwrite("output.jpg", rotated_image)
+rotated_img = rotate_img(input_img, rot_angle)
+cv2.imwrite("output.jpg", rotated_img)
+
+# Crop rotated image using original
+#  print str(np.array(input_img.shape))
+#  print str(np.array(input_img.shape)[0:2])
+[diff_y, diff_x] = np.array(input_img.shape[0:2]) / 2
+[c_y, c_x] = np.array(rotated_img.shape[0:2]) / 2
+print str(c_x) + "," + str(diff_x) + "," + str(c_y) + "," + str(diff_y)
+cropped_img = rotated_img[c_y - diff_y:c_y + diff_y, c_x - diff_x:c_x + diff_x]
+cv2.imwrite("cropped.jpg", cropped_img)
