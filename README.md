@@ -24,6 +24,23 @@ sample image in the repo called `test.jpg`.
 python cli.py test.jpg
 ```
 
+## Tasks
+
+* Web interface
+  * Center selected image preview
+  * Better styling for image reselect hover
+  * Fade out non-current panes
+  * Disable reselect hover when not current pane
+  * Center output image and limit size
+  * Improve intermediate options screen
+    * Style autocrop checkbox
+    * Style rotate button
+  * Replace previous arrow with back button
+  * Add retry buttons
+  * Download button for output image
+  * Color scheme
+  * Better fonts
+
 ## References
 
 * [Hough Line Transform docs](https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/hough_lines/hough_lines.html)
