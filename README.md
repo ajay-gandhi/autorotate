@@ -27,7 +27,6 @@ python cli.py test.jpg
 ## Tasks
 
 * Web interface
-  * Center output image and limit size
   * Replace previous arrow with back button
   * Disable reselect hover when not current pane
   * Improve intermediate options screen
