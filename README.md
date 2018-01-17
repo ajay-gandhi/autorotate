@@ -10,7 +10,11 @@
 
 <img src="https://raw.githubusercontent.com/ajay-gandhi/image-rotator/master/output.jpg" width="350" />
 
-## Usage
+## Web rotator
+
+Visit [Autorotate](http://autorotate.herokuapp.com) for a live demo!
+
+## CLI
 
 Make sure you have OpenCV installed. Run `cli.py` on the image you want to
 rotate. Use the `help`/`h` flag for all the command line options. There's a
