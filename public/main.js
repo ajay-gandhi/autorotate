@@ -3,29 +3,29 @@ var didRotate = false;
 
 var fr = new FileReader();
 fr.onload = function (e) {
-  $("#previewUpload").attr("src", e.target.result);
+  $(".ImageSelect__preview").attr("src", e.target.result);
   imageData = e.target.result;
 };
 
 $(document).ready(function () {
-  $("#selectImage").change(function () {
+  $(".ImageSelect__input").change(function () {
     fr.readAsDataURL($(this).prop("files")[0]);
   });
 
-  $("#submitImage").click(function () {
-    post_rotate_img({ auto_crop: $("#autoCrop").is(":checked") });
+  $(".Options__rotateButton").click(function () {
+    post_rotate_img({ auto_crop: $(".Options__autoCrop").is(":checked") });
   });
 
-  $("#noRotation").click(function () {
+  $(".Options__retryButton--none").click(function () {
     post_rotate_img({
-      auto_crop: $("#autoCrop").is(":checked"),
+      auto_crop: $(".Options__autoCrop").is(":checked"),
       threshold: 50,
     });
   });
 
-  $("#incorrectRotation").click(function () {
+  $(".Options__retryButton--incorrect").click(function () {
     post_rotate_img({
-      auto_crop: $("#autoCrop").is(":checked"),
+      auto_crop: $(".Options__autoCrop").is(":checked"),
       threshold: 200,
     });
   });
@@ -41,8 +41,8 @@ var post_rotate_img = function (data) {
   }).done(function (result) {
     var data = JSON.parse(result);
     if (data.success) {
-      $("#outputImage").attr("src", "data:image/png;base64," + data.imageData.trim());
-      $(".retryButton").show();
+      $(".Output__image").attr("src", "data:image/png;base64," + data.imageData.trim());
+      $(".Options__retryButton").show();
     } else {
       console.log("Error", data.error);
     }

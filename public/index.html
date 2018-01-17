@@ -6,16 +6,21 @@
   <script src="main.js"></script>
 </head>
 <body>
-  <h1>Image Autorotator</h1>
-  <input id="selectImage" type="file" accept="image/*" />
-  <button id="submitImage" type="button">Rotate image</button>
-  <br />
-  <input id="autoCrop" type="checkbox" checked /><label for="autoCrop">Auto crop image</label>
-  <br />
-  <img id="previewUpload" />
-  <img id="outputImage" />
-  <br />
-  <button id="noRotation" class="retryButton" type="button">Image did not rotate</button>
-  <button id="incorrectRotation" class="retryButton" type="button">Image rotated incorrectly</button>
+  <div class="AutoRotator">
+    <h1 class="AutoRotator__Title">Image Autorotator</h1>
+    <div class="AutoRotator__Options">
+      <input class="Options__autoCrop" name="autoCrop" type="checkbox" checked /><label for="autoCrop">Auto crop image</label>
+      <button class="Options__rotateButton" type="button">Rotate image</button>
+      <button class="Options__retryButton Options__retryButton--none" type="button">Image did not rotate</button>
+      <button class="Options__retryButton Options__retryButton--incorrect" type="button">Image rotated incorrectly</button>
+    </div>
+    <div class="AutoRotator__ImageSelect">
+      <img class="ImageSelect__preview" />
+      <input class="ImageSelect__input" type="file" accept="image/*" />
+    </div>
+    <div class="AutoRotator__Output">
+      <img class="Output__image" />
+    </div>
+  </div>
 </body>
 </html>
