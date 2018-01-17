@@ -7,11 +7,13 @@ fr.onload = function (e) {
 
   // Only need to do this once
   if (!imageData) {
+    $(".AutoRotator__Carousel").slick("slickNext");
+
     $(".Options__rotateButton").removeProp("disabled");
     $(".ImageSelect__preview").show();
     $(".ImageSelect__prompt").hide().text("Choose new file").addClass("ImageSelect__prompt--reselect");
 
-    $(".AutoRotator__ImageSelect").hover(function () {
+    $(".Carousel__ImageSelect").hover(function () {
       $(".ImageSelect__prompt").stop().fadeIn();
     }, function () {
       $(".ImageSelect__prompt").stop().fadeOut();
@@ -22,6 +24,20 @@ fr.onload = function (e) {
 };
 
 $(document).ready(function () {
+  $(".AutoRotator__Carousel").slick({
+    centerMode: true,
+    // centerPadding: "200px",
+    slidesToShow: 1,
+    variableWidth: true,
+
+    // Disable manual navigation
+    accessibility: false,
+    nextArrow: false,
+    infinite: false,
+    swipeToSlide: false,
+    draggable: false,
+  });
+
   $(".ImageSelect__prompt").click(function () {
     $(".ImageSelect__input").click();
   });
@@ -34,19 +50,19 @@ $(document).ready(function () {
     post_rotate_img({ auto_crop: $(".Options__autoCrop").is(":checked") });
   });
 
-  $(".Options__retryButton--none").click(function () {
-    post_rotate_img({
-      auto_crop: $(".Options__autoCrop").is(":checked"),
-      threshold: 50,
-    });
-  });
+  // $(".Options__retryButton--none").click(function () {
+    // post_rotate_img({
+      // auto_crop: $(".Options__autoCrop").is(":checked"),
+      // threshold: 50,
+    // });
+  // });
 
-  $(".Options__retryButton--incorrect").click(function () {
-    post_rotate_img({
-      auto_crop: $(".Options__autoCrop").is(":checked"),
-      threshold: 200,
-    });
-  });
+  // $(".Options__retryButton--incorrect").click(function () {
+    // post_rotate_img({
+      // auto_crop: $(".Options__autoCrop").is(":checked"),
+      // threshold: 200,
+    // });
+  // });
 });
 
 var post_rotate_img = function (data) {
@@ -60,7 +76,7 @@ var post_rotate_img = function (data) {
     var data = JSON.parse(result);
     if (data.success) {
       $(".Output__image").attr("src", "data:image/png;base64," + data.imageData.trim());
-      $(".Options__retryButton").show();
+      $(".AutoRotator__Carousel").slick("slickGoTo", 2);
     } else {
       console.log("Error", data.error);
     }
