@@ -4,10 +4,26 @@ var didRotate = false;
 var fr = new FileReader();
 fr.onload = function (e) {
   $(".ImageSelect__preview").attr("src", e.target.result);
+
+  // Only need to do this once
+  if (!imageData) {
+    $(".ImageSelect__preview").show();
+    $(".ImageSelect__prompt").hide().text("Choose new file").addClass("ImageSelect__prompt--reselect");
+    $(".AutoRotator__ImageSelect").hover(function () {
+      $(".ImageSelect__prompt").fadeIn();
+    }, function () {
+      $(".ImageSelect__prompt").fadeOut();
+    });
+  }
+
   imageData = e.target.result;
 };
 
 $(document).ready(function () {
+  $(".ImageSelect__prompt").click(function () {
+    $(".ImageSelect__input").click();
+  });
+
   $(".ImageSelect__input").change(function () {
     fr.readAsDataURL($(this).prop("files")[0]);
   });
