@@ -27,7 +27,6 @@ python cli.py test.jpg
 ## Tasks
 
 * Web interface
-  * Center selected image preview
   * Better styling for image reselect hover
   * Fade out non-current panes
   * Disable reselect hover when not current pane

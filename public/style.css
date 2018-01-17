@@ -9,11 +9,6 @@ body {
   padding: 0 30px;
   background: #419be0;
   height: 100vh;
-  /* display: flex; */
-  /* flex-flow: column nowrap; */
-  /* justify-content: flex-start; */
-  /* align-items: center; */
-  /* border: 1px solid red; */
 }
 
 .slick-slide {
@@ -51,8 +46,10 @@ body {
   display: none;
 }
 .ImageSelect__preview {
-  display: block;
-  object-fit: contain;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
   height: auto;
   width: auto;
   max-width: 100%;
