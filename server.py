@@ -9,6 +9,11 @@ import numpy as np
 
 from rotateUtils import autorotate
 
+def contentTypeFromFilename(filename):
+    mapping = { ".js": "application/javascript", ".css": "text/css" }
+    _, ext = os.path.splitext(filename)
+    return mapping[ext] if ext in mapping else "text/html"
+
 class RequestHandler(BaseHTTPRequestHandler):
     def _set_headers(self, contentType="text/html"):
         self.send_response(200)
@@ -16,14 +21,27 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        if self.path == "/main.js":
-            self._set_headers("application/javascript")
-            f = open("public/main.js", "r")
-        else:
-            self._set_headers()
+        # Use basename so there are no absolute paths, etc
+        file_path = "public/{}".format(os.path.basename(self.path))
+        if self.path == "/":
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
             f = open("public/index.html", "r")
+            self.wfile.write(f.read().encode())
 
-        self.wfile.write(f.read().encode())
+        elif os.path.isfile(file_path):
+            self.send_response(200)
+            self.send_header("Content-type", contentTypeFromFilename(file_path))
+            self.end_headers()
+            f = open(file_path, "r")
+            self.wfile.write(f.read().encode())
+
+        else:
+            self.send_response(404)
+            self.send_header("Content-type", "text")
+            self.end_headers()
+            self.wfile.write("404 not found".encode())
 
     def do_POST(self):
         self.send_response(200)
