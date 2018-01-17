@@ -27,16 +27,16 @@ python cli.py test.jpg
 ## Tasks
 
 * Web interface
-  * Better styling for image reselect hover
-  * Fade out non-current panes
-  * Disable reselect hover when not current pane
   * Center output image and limit size
+  * Replace previous arrow with back button
+  * Disable reselect hover when not current pane
   * Improve intermediate options screen
     * Style autocrop checkbox
     * Style rotate button
-  * Replace previous arrow with back button
+  * Add way to travel to pane 2 after reselecting
   * Add retry buttons
   * Download button for output image
+  * Better styling for image reselect hover
   * Color scheme
   * Better fonts
 
