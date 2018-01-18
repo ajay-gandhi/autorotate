@@ -1,31 +1,56 @@
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+  background-color: #fcfcfc;
 }
 
 .AutoRotator {
-  margin: 0 auto;
+  margin: 30px auto;
   width: 100%;
   max-width: 800px;
-  padding: 0 30px;
-  background: #419be0;
-  height: 100vh;
+  padding: 20px 30px;
+  height: 700px;
+}
+.AutoRotator__Title {
+  margin: 0 0 30px 0;
+  text-align: center;
+  font-family: "Raleway", sans-serif;
 }
 
+.slick-list {
+  position: relative;
+  height: 500px;
+}
+.slick-track {
+  position: relative;
+  top: 25px;
+}
 .slick-slide {
   text-align: center;
   color: #419be0;
   background: white;
   opacity: 0.7;
+  border: 3px solid #333;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 .slick-current {
+  box-shadow: 0px 0px 30px 5px #ccc;
   opacity: 1.0;
+}
+.slick-slide:not(.slick-current) {
+  transform: scale(0.85);
+  transition: ease 300ms;
 }
 
 .Carousel__pane {
   margin: 0 20px;
   width: 100%;
   max-width: 500px;
-  height: 440px;
+  height: 450px;
 }
 
 .Carousel__Input {
@@ -67,7 +92,7 @@ body {
 }
 
 .Input__Options {
-  padding: 10px 10px 0 10px;
+  padding: 12px 15px 0 15px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
