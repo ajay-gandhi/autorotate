@@ -7,13 +7,11 @@ fr.onload = function (e) {
 
   // Only need to do this once
   if (!imageData) {
-    $(".AutoRotator__Carousel").slick("slickNext");
-
     $(".Options__rotateButton").removeProp("disabled");
     $(".ImageSelect__preview").show();
     $(".ImageSelect__prompt").hide().text("Choose new file").addClass("ImageSelect__prompt--reselect");
 
-    $(".Carousel__ImageSelect").hover(function () {
+    $(".Input__ImageSelect").hover(function () {
       $(".ImageSelect__prompt").stop().fadeIn();
     }, function () {
       $(".ImageSelect__prompt").stop().fadeOut();

@@ -28,9 +28,13 @@ body {
   height: 400px;
 }
 
-.Carousel__ImageSelect {
+.Carousel__Input {
   position: relative;
-  cursor: pointer;
+  height: 430px;
+}
+.Input__ImageSelect {
+  position: relative;
+  height: 400px;
 }
 .ImageSelect__prompt {
   font-size: 20px;
@@ -42,6 +46,7 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
+  cursor: pointer;
   z-index: 10;
 }
 .ImageSelect__prompt--reselect {

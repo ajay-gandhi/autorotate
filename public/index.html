@@ -13,13 +13,13 @@
   <div class="AutoRotator">
     <h1 class="AutoRotator__Title">Image Autorotator</h1>
     <div class="AutoRotator__Carousel">
-      <div class="Carousel__pane Carousel__ImageSelect">
-        <img class="ImageSelect__preview" />
-        <div class="ImageSelect__prompt">Choose file</div>
-        <input class="ImageSelect__input" type="file" accept="image/*" />
-      </div>
-      <div class="Carousel__pane Carousel__Options">
-        <input class="Options__autoCrop" name="autoCrop" type="checkbox" checked /><label for="autoCrop">Auto crop image</label>
+      <div class="Carousel__pane Carousel__Input">
+        <div class="Input__ImageSelect">
+          <img class="ImageSelect__preview" />
+          <div class="ImageSelect__prompt">Choose file</div>
+          <input class="ImageSelect__input" type="file" accept="image/*" />
+        </div>
+        <input class="Options__autoCrop" id="autoCrop" type="checkbox" checked /><label for="autoCrop">Auto crop image</label>
         <button class="Options__rotateButton" type="button" disabled>Rotate image</button>
         <button class="Options__retryButton Options__retryButton--none" type="button">Image did not rotate</button>
         <button class="Options__retryButton Options__retryButton--incorrect" type="button">Image rotated incorrectly</button>
