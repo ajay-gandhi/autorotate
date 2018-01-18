@@ -25,12 +25,11 @@ body {
   margin: 0 20px;
   width: 100%;
   max-width: 500px;
-  height: 400px;
+  height: 440px;
 }
 
 .Carousel__Input {
   position: relative;
-  height: 430px;
 }
 .Input__ImageSelect {
   position: relative;
@@ -67,14 +66,22 @@ body {
   z-index: 9;
 }
 
-.Options__retryButton {
-  display: none;
+.Input__Options {
+  padding: 10px 10px 0 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  border-top: 1px solid blue;
 }
 
 .Carousel__Output {
   position: relative;
 }
-.Output__image {
+.Output__ImageOutput {
+  position: relative;
+  height: 400px;
+}
+.ImageOutput__image {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -83,4 +90,11 @@ body {
   width: auto;
   max-width: 100%;
   max-height: 100%;
+}
+.Output__Actions {
+  padding: 10px 10px 0 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  border-top: 1px solid blue;
 }

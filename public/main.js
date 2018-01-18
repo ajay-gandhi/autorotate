@@ -24,13 +24,12 @@ fr.onload = function (e) {
 $(document).ready(function () {
   $(".AutoRotator__Carousel").slick({
     centerMode: true,
-    // centerPadding: "200px",
     slidesToShow: 1,
     variableWidth: true,
 
     // Disable manual navigation
     accessibility: false,
-    nextArrow: false,
+    arrows: false,
     infinite: false,
     swipeToSlide: false,
     draggable: false,
@@ -45,7 +44,7 @@ $(document).ready(function () {
   });
 
   $(".Options__rotateButton").click(function () {
-    post_rotate_img({ auto_crop: $(".Options__autoCrop").is(":checked") });
+    post_rotate_img({ auto_crop: $(".Options__autoCropContainer__checkbox").is(":checked") });
   });
 
   // $(".Options__retryButton--none").click(function () {
@@ -73,7 +72,7 @@ var post_rotate_img = function (data) {
   }).done(function (result) {
     var data = JSON.parse(result);
     if (data.success) {
-      $(".Output__image").attr("src", "data:image/png;base64," + data.imageData.trim());
+      $(".ImageOutput__image").attr("src", "data:image/png;base64," + data.imageData.trim());
       $(".AutoRotator__Carousel").slick("slickGoTo", 2);
     } else {
       console.log("Error", data.error);
