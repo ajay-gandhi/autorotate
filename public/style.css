@@ -5,6 +5,19 @@ html, body {
   background-color: #fcfcfc;
 }
 
+.borderlessButton {
+  padding: 6px 8px;
+  border: none;
+  border-radius: 3px;
+  background-color: #fff;
+  cursor: pointer;
+  color: #419be0;
+  font-size: 16px;
+}
+.borderlessButton:hover {
+  background-color: #f2f2f2;
+}
+
 .AutoRotator {
   margin: 30px auto;
   width: 100%;
@@ -15,6 +28,7 @@ html, body {
 .AutoRotator__Title {
   margin: 0 0 30px 0;
   text-align: center;
+  color: #333;
   font-family: "Raleway", sans-serif;
 }
 
@@ -29,7 +43,7 @@ html, body {
 .slick-slide {
   text-align: center;
   color: #419be0;
-  background: white;
+  background: #fff;
   opacity: 0.7;
   border: 3px solid #333;
   border-top-left-radius: 0;
@@ -61,7 +75,7 @@ html, body {
   height: 400px;
 }
 .ImageSelect__prompt {
-  font-size: 20px;
+  font-size: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,11 +106,12 @@ html, body {
 }
 
 .Input__Options {
-  padding: 12px 15px 0 15px;
+  padding: 8px 15px 0 15px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  border-top: 1px solid blue;
+  align-items: center;
+  border-top: 3px solid #333;
 }
 
 .Carousel__Output {
@@ -121,5 +136,5 @@ html, body {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  border-top: 1px solid blue;
+  border-top: 3px solid #333;
 }

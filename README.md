@@ -27,15 +27,11 @@ python cli.py test.jpg
 ## Tasks
 
 * Web interface
-  * Replace previous arrow with back button
-  * Disable reselect hover when not current pane
-  * Improve intermediate options screen
-    * Style autocrop checkbox
-    * Style rotate button
-  * Add way to travel to pane 2 after reselecting
-  * Add retry buttons
-  * Download button for output image
   * Better styling for image reselect hover
+  * Style rotate button
+  * Disable reselect hover when not current pane
+  * Style retry buttons
+  * Download button for output image
   * Color scheme
   * Better fonts
 

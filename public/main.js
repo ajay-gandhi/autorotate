@@ -47,6 +47,10 @@ $(document).ready(function () {
     post_rotate_img({ auto_crop: $(".Options__autoCropContainer__checkbox").is(":checked") });
   });
 
+  $(".Actions__newButton").click(function () {
+    $(".AutoRotator__Carousel").slick("slickPrev");
+  });
+
   // $(".Options__retryButton--none").click(function () {
     // post_rotate_img({
       // auto_crop: $(".Options__autoCrop").is(":checked"),
