@@ -16,9 +16,15 @@
     <div class="AutoRotator__Carousel">
       <div class="Carousel__pane Carousel__Input">
         <div class="Input__ImageSelect">
-          <img class="ImageSelect__preview" />
-          <div class="ImageSelect__prompt">Choose file</div>
+          <div class="ImageSelect__prompt full-size">Choose file</div>
           <input class="ImageSelect__input" type="file" accept="image/*" />
+          <div class="ImageSelect__imageWrapper full-size">
+            <img class="ImageSelect__imageWrapper__preview centered" />
+            <div class="ImageSelect__imageWrapper__RemoveWrapper full-size">
+              <div class="RemoveWrapper__cover full-size"></div>
+              <button class="RemoveWrapper__button centered borderlessButton" type="button">Click to remove</button>
+            </div>
+          </div>
         </div>
         <div class="Input__Options">
           <div className="Options__autoCropContainer">
@@ -30,7 +36,7 @@
       </div>
       <div class="Carousel__pane Carousel__Output">
         <div class="Output__ImageOutput">
-          <img class="ImageOutput__image" />
+          <img class="ImageOutput__image centered" />
         </div>
         <div class="Output__Actions">
           <button class="Actions__newButton borderlessButton" type="button">Rotate new image</button>

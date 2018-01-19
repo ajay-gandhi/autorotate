@@ -3,20 +3,10 @@ var didRotate = false;
 
 var fr = new FileReader();
 fr.onload = function (e) {
-  $(".ImageSelect__preview").attr("src", e.target.result);
-
-  $(".Input__ImageSelect").hover(function () {
-    $(".ImageSelect__prompt").stop().fadeIn();
-  }, function () {
-    $(".ImageSelect__prompt").stop().fadeOut();
-  });
-
-  // Only need to do this once
-  if (!imageData) {
-    $(".Options__rotateButton").removeProp("disabled");
-    $(".ImageSelect__preview").show();
-    $(".ImageSelect__prompt").hide().text("Choose new file").addClass("ImageSelect__prompt--reselect");
-  }
+  $(".ImageSelect__imageWrapper__preview").attr("src", e.target.result);
+  $(".Options__rotateButton").removeProp("disabled");
+  $(".ImageSelect__imageWrapper").show();
+  $(".ImageSelect__imageWrapper__RemoveWrapper").hide();
 
   imageData = e.target.result;
 };
@@ -36,19 +26,30 @@ $(document).ready(function () {
     draggable: false,
   });
 
+  // Image select actions
   $(".ImageSelect__prompt").click(function () {
     $(".ImageSelect__input").click();
+  });
+
+  $(".ImageSelect__imageWrapper__RemoveWrapper").click(function () {
+    $(".ImageSelect__input").val("");
+    $(".Options__rotateButton").prop("disabled", "true");
+    $(".ImageSelect__imageWrapper").fadeOut(100);
   });
 
   $(".ImageSelect__input").change(function () {
     fr.readAsDataURL($(this).prop("files")[0]);
   });
 
+  attach_image_hover();
+
+  // Buttons
   $(".Options__rotateButton").click(function () {
     post_rotate_img({ auto_crop: $(".Options__autoCropContainer__checkbox").is(":checked") });
   });
 
   $(".Actions__newButton").click(function () {
+    attach_image_hover();
     $(".AutoRotator__Carousel").slick("slickPrev");
   });
 
@@ -85,5 +86,13 @@ var post_rotate_img = function (data) {
     }
   }).fail(function (xhr, ajaxOptions, thrownError) {
     console.log("Error", thrownError);
+  });
+}
+
+var attach_image_hover = function () {
+  $(".Input__ImageSelect").hover(function () {
+    $(".ImageSelect__imageWrapper__RemoveWrapper").stop().fadeIn(200);
+  }, function () {
+    $(".ImageSelect__imageWrapper__RemoveWrapper").stop().fadeOut(200);
   });
 }
