@@ -27,9 +27,15 @@ python cli.py test.jpg
 ## Tasks
 
 * Web interface
+  * Implement removing selected image
+    * Implement remove on click
+    * Implement style for remove notice
+    * Move image select prompt behind preview
+  * Implement load from URL
   * Better styling for image reselect hover
-  * Disable reselect hover when not current pane
+  * Implement spinner
   * Style retry buttons
+  * Implement retry buttons
   * Download button for output image
 
 ## References

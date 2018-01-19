@@ -5,17 +5,17 @@ var fr = new FileReader();
 fr.onload = function (e) {
   $(".ImageSelect__preview").attr("src", e.target.result);
 
+  $(".Input__ImageSelect").hover(function () {
+    $(".ImageSelect__prompt").stop().fadeIn();
+  }, function () {
+    $(".ImageSelect__prompt").stop().fadeOut();
+  });
+
   // Only need to do this once
   if (!imageData) {
     $(".Options__rotateButton").removeProp("disabled");
     $(".ImageSelect__preview").show();
     $(".ImageSelect__prompt").hide().text("Choose new file").addClass("ImageSelect__prompt--reselect");
-
-    $(".Input__ImageSelect").hover(function () {
-      $(".ImageSelect__prompt").stop().fadeIn();
-    }, function () {
-      $(".ImageSelect__prompt").stop().fadeOut();
-    });
   }
 
   imageData = e.target.result;
@@ -78,6 +78,7 @@ var post_rotate_img = function (data) {
     var data = JSON.parse(result);
     if (data.success) {
       $(".ImageOutput__image").attr("src", "data:image/png;base64," + data.imageData.trim());
+      $(".Input__ImageSelect").off("hover");
       $(".AutoRotator__Carousel").slick("slickGoTo", 2);
     } else {
       console.log("Error", data.error);
