@@ -27,7 +27,6 @@ python cli.py test.jpg
 ## Tasks
 
 * Web interface
-  * Implement spinner
   * Style retry buttons
   * Implement retry buttons
   * Download button for output image

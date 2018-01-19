@@ -10,7 +10,7 @@ import numpy as np
 from rotateUtils import autorotate
 
 def contentTypeFromFilename(filename):
-    mapping = { ".js": "application/javascript", ".css": "text/css" }
+    mapping = { ".js": "application/javascript", ".css": "text/css", ".gif": "image/gif" }
     _, ext = os.path.splitext(filename)
     return mapping[ext] if ext in mapping else "text/html"
 
@@ -34,8 +34,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", contentTypeFromFilename(file_path))
             self.end_headers()
-            f = open(file_path, "r")
-            self.wfile.write(f.read().encode())
+            f = open(file_path, "rb")
+            self.wfile.write(f.read())
 
         else:
             self.send_response(404)

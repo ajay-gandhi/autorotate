@@ -45,7 +45,7 @@ $(document).ready(function () {
 
   // Buttons
   $(".Options__rotateButton").click(function () {
-    post_rotate_img({ auto_crop: $(".Options__autoCropContainer__checkbox").is(":checked") });
+    post_rotate_img();
   });
 
   $(".Actions__newButton").click(function () {
@@ -53,23 +53,23 @@ $(document).ready(function () {
     $(".AutoRotator__Carousel").slick("slickPrev");
   });
 
-  // $(".Options__retryButton--none").click(function () {
-    // post_rotate_img({
-      // auto_crop: $(".Options__autoCrop").is(":checked"),
-      // threshold: 50,
-    // });
-  // });
+  $(".Options__retryButton--none").click(function () {
+    post_rotate_img({ threshold: 50 });
+  });
 
-  // $(".Options__retryButton--incorrect").click(function () {
-    // post_rotate_img({
-      // auto_crop: $(".Options__autoCrop").is(":checked"),
-      // threshold: 200,
-    // });
-  // });
+  $(".Options__retryButton--incorrect").click(function () {
+    post_rotate_img({ threshold: 200 });
+  });
 });
 
-var post_rotate_img = function (data) {
+var post_rotate_img = function (arg) {
+  var data = arg || {};
+  data.auto_crop = $(".Options__autoCropContainer__checkbox").is(":checked");
   data.image_data = imageData.substring(imageData.indexOf(",") + 1);
+
+  $(".ImageOutput__image").attr("src", "loading.gif");
+  $(".Input__ImageSelect").off("hover");
+  $(".AutoRotator__Carousel").slick("slickGoTo", 2);
 
   $.ajax({
     url: "/rotate",
@@ -79,8 +79,6 @@ var post_rotate_img = function (data) {
     var data = JSON.parse(result);
     if (data.success) {
       $(".ImageOutput__image").attr("src", "data:image/png;base64," + data.imageData.trim());
-      $(".Input__ImageSelect").off("hover");
-      $(".AutoRotator__Carousel").slick("slickGoTo", 2);
     } else {
       console.log("Error", data.error);
     }
