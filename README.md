@@ -27,12 +27,11 @@ python cli.py test.jpg
 ## Tasks
 
 * Web interface
-  * Implement load from URL
-  * Better styling for image reselect hover
   * Implement spinner
   * Style retry buttons
   * Implement retry buttons
   * Download button for output image
+  * Implement load from URL
 
 ## References
 
