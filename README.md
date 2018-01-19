@@ -27,8 +27,6 @@ python cli.py test.jpg
 ## Tasks
 
 * Web interface
-  * Style retry buttons
-  * Implement retry buttons
   * Download button for output image
   * Implement load from URL
 
