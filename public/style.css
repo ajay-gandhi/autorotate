@@ -14,7 +14,7 @@ html, body {
   color: #419be0;
   font-size: 16px;
 }
-.borderlessButton:hover {
+.borderlessButton:not(:disabled):hover {
   background-color: #f2f2f2;
 }
 
@@ -32,6 +32,10 @@ html, body {
   font-family: "Raleway", sans-serif;
 }
 
+/* Carousel */
+.AutoRotator__Carousel {
+  position: relative;
+}
 .slick-list {
   position: relative;
   height: 500px;
@@ -50,6 +54,7 @@ html, body {
   border-top-right-radius: 0;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  transition: ease 300ms;
 }
 .slick-current {
   box-shadow: 0px 0px 30px 5px #ccc;
@@ -57,16 +62,30 @@ html, body {
 }
 .slick-slide:not(.slick-current) {
   transform: scale(0.85);
-  transition: ease 300ms;
 }
-
 .Carousel__pane {
   margin: 0 20px;
   width: 100%;
   max-width: 500px;
   height: 450px;
 }
+.Carousel__fade {
+  width: 0px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 99;
+}
+.Carousel__fade--right {
+  right: 0;
+  box-shadow: 0 0 100px 80px #fcfcfc;
+}
+.Carousel__fade--left {
+  left: 0;
+  box-shadow: 0 0 100px 80px #fcfcfc;
+}
 
+/* Input */
 .Carousel__Input {
   position: relative;
 }
@@ -114,6 +133,7 @@ html, body {
   border-top: 3px solid #333;
 }
 
+/* Output */
 .Carousel__Output {
   position: relative;
 }
@@ -137,4 +157,7 @@ html, body {
   flex-flow: row nowrap;
   justify-content: space-between;
   border-top: 3px solid #333;
+}
+.Actions__newButton {
+  width: 200px;
 }

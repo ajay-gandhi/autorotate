@@ -26,6 +26,7 @@ $(document).ready(function () {
     centerMode: true,
     slidesToShow: 1,
     variableWidth: true,
+    slide: ".Carousel__pane",
 
     // Disable manual navigation
     accessibility: false,

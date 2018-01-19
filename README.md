@@ -28,12 +28,9 @@ python cli.py test.jpg
 
 * Web interface
   * Better styling for image reselect hover
-  * Style rotate button
   * Disable reselect hover when not current pane
   * Style retry buttons
   * Download button for output image
-  * Color scheme
-  * Better fonts
 
 ## References
 
