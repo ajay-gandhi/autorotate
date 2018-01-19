@@ -1,3 +1,6 @@
+* {
+  outline: none;
+}
 html, body {
   margin: 0;
   padding: 0;
@@ -186,4 +189,7 @@ html, body {
 }
 .Actions__buttonWrapper__button {
   width: 215px;
+}
+.Actions__buttonWrapper__button a {
+  display: hidden;
 }

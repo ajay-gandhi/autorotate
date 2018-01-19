@@ -40,12 +40,15 @@
         </div>
         <div class="Output__Actions">
           <div class="Actions__buttonWrapper">
-            <button class="Actions__buttonWrapper__button borderlessButton" type="button">Rotate new image</button>
-            <button class="Actions__buttonWrapper__button borderlessButton" type="button">Download</button>
+            <button class="Actions__buttonWrapper__button borderlessButton" id="newRotateButton" type="button">Rotate new image</button>
+            <button class="Actions__buttonWrapper__button borderlessButton" id="downloadButton" type="button">
+              Download
+              <a download="rotated.png"></a>
+            </button>
           </div>
           <div class="Actions__buttonWrapper">
-            <button class="Actions__buttonWrapper__button borderlessButton" type="button">Image did not rotate</button>
-            <button class="Actions__buttonWrapper__button borderlessButton" type="button">Image rotated incorrectly</button>
+            <button class="Actions__buttonWrapper__button borderlessButton" id="retryNoRotate" type="button">Image did not rotate</button>
+            <button class="Actions__buttonWrapper__button borderlessButton" id="retryIncorrectRotate" type="button">Image rotated incorrectly</button>
           </div>
         </div>
       </div>

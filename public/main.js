@@ -48,16 +48,20 @@ $(document).ready(function () {
     post_rotate_img();
   });
 
-  $(".Actions__newButton").click(function () {
+  $("#newRotateButton").click(function () {
     attach_image_hover();
     $(".AutoRotator__Carousel").slick("slickPrev");
   });
 
-  $(".Options__retryButton--none").click(function () {
+  $("#downloadButton").click(function () {
+    $("#downloadButton a")[0].click();
+  });
+
+  $("#retryNoRotate").click(function () {
     post_rotate_img({ threshold: 50 });
   });
 
-  $(".Options__retryButton--incorrect").click(function () {
+  $("#retryIncorrectRotate").click(function () {
     post_rotate_img({ threshold: 200 });
   });
 });
@@ -78,8 +82,11 @@ var post_rotate_img = function (arg) {
   }).done(function (result) {
     var data = JSON.parse(result);
     if (data.success) {
-      $(".ImageOutput__image").attr("src", "data:image/png;base64," + data.imageData.trim());
+      var imageOutput = "data:image/png;base64," + data.imageData.trim();
+      $(".ImageOutput__image").attr("src", imageOutput);
+      $("a").attr("href", imageOutput);
     } else {
+      $(".ImageOutput__image").attr("src", imageData);
       console.log("Error", data.error);
     }
   }).fail(function (xhr, ajaxOptions, thrownError) {

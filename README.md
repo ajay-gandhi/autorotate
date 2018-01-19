@@ -27,7 +27,6 @@ python cli.py test.jpg
 ## Tasks
 
 * Web interface
-  * Download button for output image
   * Implement load from URL
 
 ## References
