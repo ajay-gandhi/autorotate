@@ -1,4 +1,4 @@
-# image rotator
+# autorotate
 
 ## Example
 
